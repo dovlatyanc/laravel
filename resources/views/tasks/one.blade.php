@@ -20,12 +20,26 @@
                     <p class="text-xl font-medium text-gray-900 break-words">{{ $task->title }}</p>
                 </div>
             </div>
-            <div>
-                <a href="{{ route('tasks.edit', $task->id) }}" class="text-center border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                    <button>Редактировать задачу</button>
+           <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <a href="{{ route('tasks.edit', $task->id) }}" class="flex-1 text-center py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                    Редактировать задачу
                 </a>
-                <a href="{{ route('tasks.index') }}" class="text-center border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                      <button>Назад к списку</button>
+
+                <form 
+                    action="{{ route('tasks.destroy', $task->id) }}" 
+                    method="POST" 
+                    onsubmit="return confirm('Вы уверены, что хотите удалить задачу «{{ $task->title }}»?');"
+                    class="flex-1"
+                >
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-full py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                        Удалить задачу
+                    </button>
+                </form>
+
+                <a href="{{ route('tasks.index') }}" class="flex-1 text-center py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                    Назад к списку
                 </a>
             </div>
         </div>

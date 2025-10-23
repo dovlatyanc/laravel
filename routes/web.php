@@ -13,3 +13,4 @@ Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.crea
 Route::get('/tasks/edit/{id}', [TaskController::class,'showEdit'])->name('tasks.edit'); // Форма редактирования;
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store'); // Сохранение новой задачи
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update'); // Обновление задачи
+Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');

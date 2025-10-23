@@ -1,4 +1,4 @@
-<?php
+<!-- =
 
 namespace App;
 
@@ -60,4 +60,4 @@ class Task
         throw new \Exception("Не найдена задача для обновления с id = {$id}");
     }
 }
-Task::staticConstruct();
+Task::staticConstruct(); -->

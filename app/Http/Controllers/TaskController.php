@@ -3,24 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Task;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
     public function showAll()
     {
-        return view('tasks.all', ['tasks' => Task::getAll()]);
+        return view('tasks.all', ['tasks' => Task::all()]);
     }
 
     public function showOne($id)
     {
-        $task = Task::findById($id);
+        $task = Task::findOrFail($id);;
         return view('tasks.one', ['task' => $task]);
     }
 
     public function showEdit($id)
     {
-        $task = Task::findById($id);
+        $task = Task::findOrFail($id);
         return view('tasks.edit', ['task' => $task]);
     }
 
@@ -36,20 +36,36 @@ class TaskController extends Controller
             'due'   => 'required|date',
         ]);
 
-        Task::create($request->title, $request->due);
+        Task::create([
+            'title' => $request->title,
+            'due'   => $request->due,
+        ]);
 
         return redirect()->route('tasks.index')->with('success', 'Задача добавлена!');
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'due'   => 'required|date',
-        ]);
+        {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'due'   => 'required|date',
+            ]);
 
-        Task::update((int)$id, $request->title, $request->due);
+            $task = Task::findOrFail($id);
+            $task->update([
+                'title' => $request->title,
+                'due'   => $request->due,
+            ]);
 
-        return redirect()->route('tasks.show', $id)->with('success', 'Задача обновлена!');
-    }
+            return redirect()->route('tasks.show', $id)->with('success', 'Задача обновлена!');
+        }
+
+   
+     public function destroy($id)
+        {
+            $task = Task::findOrFail($id);
+            $task->delete();
+
+            return redirect()->route('tasks.index')->with('success', 'Задача удалена!');
+        }
 }
