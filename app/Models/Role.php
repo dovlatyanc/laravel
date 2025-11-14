@@ -18,7 +18,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Role extends Model
 {
-    //
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_roles');
+    }
 }

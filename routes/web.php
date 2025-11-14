@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +17,11 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store'); // Сохранение новой задачи
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update'); // Обновление задачи
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
+    Route::get('/users-with-roles', [UserRoleController::class, 'usersWithRoles'])->name('users.with.roles');
+    Route::get('/roles-with-users', [UserRoleController::class, 'rolesWithUsers'])->name('roles.with.users');
+    
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 });
 
 Auth::routes();
