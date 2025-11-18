@@ -9,6 +9,8 @@
     <h1>Добро пожаловать ,{{$name ?? ' Гость'}}! </h1>
     <a href="{{ route('tasks.index') }}" class="flex-1 text-center py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
         <button>Перейти ко всем задачам</button>
+        
     </a>
+    <livewire:counter count="5"/>
 </body>
 </html>

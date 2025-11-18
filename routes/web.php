@@ -3,6 +3,9 @@
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserRoleController;
+
+use App\Livewire\AssignRoleComponent;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +25,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/roles-with-users', [UserRoleController::class, 'rolesWithUsers'])->name('roles.with.users');
     
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+    Route::get('/assign-role', AssignRoleComponent::class)->name('assign.role');
 });
 
 Auth::routes();
